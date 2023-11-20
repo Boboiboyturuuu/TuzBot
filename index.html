@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.1, maximum-scale=1.0, user-scalable=no">
+  <title>Profile Card</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background-image: url('https://telegra.ph/file/44147fb029107a2c8c1c3.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-card {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 30px;
+      border: 2px solid #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .profile-picture {
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: auto;
+    }
+
+    h2, p {
+      color: #fff;
+    }
+
+    .social-links {
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 0 15px;
+      background-color: #fff;
+      border-radius: 50%;
+      padding: 10px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .social-links a img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .social-links a:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    #time-location {
+      margin-top: 30px;
+      color: #fff;
+    }
+
+    #whatsapp-button {
+      background-color: #25D366;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    #whatsapp-button:hover {
+      background-color: #128C7E;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <div class="profile-picture">
+      <img src="https://telegra.ph/file/26c1784ee67a0ecfe9dbc.jpg" alt="Profile Picture">
+    </div>
+    <h2>Boboiboy</h2>
+    <p>Owner Abdultobigo</p>
+    
+    <p>Sosmed Developer</p>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/boboiboy_turuuu" target="_blank">
+        <img src="https://telegra.ph/file/29ccf21d14764f7ed71c8.png" alt="Instagram">
+      </a>
+      <a href="https://m.facebook.com/abdul.latift.58" target="_blank">
+        <img src="https://telegra.ph/file/bce173344dc82c287974f.png" alt="Facebook">
+      </a>
+      <a href="https://www.tiktok.com/@boboiboyturuu" target="_blank">
+        <img src="https://telegra.ph/file/ff6ca87542859a5b13618.png" alt="TikTok">
+      </a>
+      <a href="https://github.com/Boboiboyturuuu" target="_blank">
+        <img src="https://telegra.ph/file/c3ee215a9d3884d5a79ea.png" alt="GitHub">
+      </a>
+      <a href="https://threads.com/boboiboy_turuuu" target="_blank">
+        <img src="https://telegra.ph/file/abb196e19147f8c59f0a6.png" alt="Threads">
+      </a>
+    </div>
+
+    <div id="time-location">
+      <p id="current-time"></p>
+      <p id="current-location"></p>
+    </div>
+
+    <a id="whatsapp-button" href="https://api.whatsapp.com/send/?phone=6282282963078&text&type=phone_number&app_absent=0" target="_blank">Message Me On WhatsApp</a>
+  </div>
+
+  <script>
+    function updateTime() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      document.getElementById('current-time').innerHTML = 'Current Time: ' + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+        document.getElementById('current-location').innerHTML = 'Indonesia, Palu';
+    }
+
+    updateTime();
+    setInterval(updateTime, 60000);
+  </script>
+
+</body>
+</html>
