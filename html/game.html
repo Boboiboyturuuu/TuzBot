@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Wibu</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      overflow: hidden;
+    }
+
+    #game-board {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      width: 100px;
+      height: 150px;
+      margin: 10px;
+      background-size: cover;
+      background-position: center;
+      background-image: url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg');
+      transition: transform 0.5s ease-in-out, background-position 1s ease-in-out;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      background-position: 20% 20%;
+    }
+
+    .congratulations-message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game-board">
+  <!-- Papan permainan dan kontennya akan ditempatkan di sini -->
+  <div class="card-container" id="row1"></div>
+  <div class="card-container" id="row2"></div>
+  <div class="card-container" id="row3"></div>
+</div>
+
+<script>
+  // Shuffle function to randomize the cards
+  function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  // Array of image URLs
+  const imageUrls = [
+    "https://telegra.ph/file/0c0405586ea2911630559.jpg",
+    "https://telegra.ph/file/fe70e5350ac6978bd99e7.jpg",
+    "https://telegra.ph/file/1b49ecc74a58a3a65ec8a.jpg",
+    "https://telegra.ph/file/bc572424bedca006bae5d.jpg"
+  ];
+
+  // Duplicate the image URLs to create pairs
+  const pairedImages = [...imageUrls, ...imageUrls];
+
+  // Shuffle the paired images
+  const shuffledImages = shuffle(pairedImages);
+
+  // Create cards on the game board
+  const row1 = document.getElementById("row1");
+  const row2 = document.getElementById("row2");
+  const row3 = document.getElementById("row3");
+
+  // Create cards for the first row
+  shuffledImages.slice(0, 3).forEach((imageUrl, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.backgroundImage = `url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg')`;
+    card.setAttribute("data-index", index);
+    card.addEventListener("click", handleCardClick);
+    row1.appendChild(card);
+  });
+
+  // Create cards for the second row
+  shuffledImages.slice(3, 6).forEach((imageUrl, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.backgroundImage = `url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg')`;
+    card.setAttribute("data-index", index + 3); // Increment index to avoid duplicate data-index
+    card.addEventListener("click", handleCardClick);
+    row2.appendChild(card);
+  });
+
+  // Create cards for the third row
+  shuffledImages.slice(6, 9).forEach((imageUrl, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.backgroundImage = `url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg')`;
+    card.setAttribute("data-index", index + 6); // Increment index to avoid duplicate data-index
+    card.addEventListener("click", handleCardClick);
+    row3.appendChild(card);
+  });
+
+  // Variables to keep track of the game state
+  let selectedCards = [];
+  let incorrectMatches = 0;
+  let isCardFlipping = false;
+
+  // Function to handle card click
+  function handleCardClick(event) {
+    if (!isCardFlipping) {
+      const clickedCard = event.target;
+      const clickedIndex = parseInt(clickedCard.getAttribute("data-index"));
+
+      // Check if the card is already selected or matched
+      if (!selectedCards.includes(clickedIndex) && selectedCards.length < 2) {
+        selectedCards.push(clickedIndex);
+        clickedCard.style.backgroundImage = `url(${shuffledImages[clickedIndex]})`; // Reveal the clicked card
+
+        // Check if two cards are selected
+        if (selectedCards.length === 2) {
+          const [firstCardIndex, secondCardIndex] = selectedCards;
+
+          // Check if the selected cards match
+          if (shuffledImages[firstCardIndex] === shuffledImages[secondCardIndex]) {
+            alert("Match!");
+
+            // Check if all matches are found
+            if (document.querySelectorAll('.card[style*="display: none;"]').length === 9) {
+              congratulatePlayer();
+            }
+          } else {
+            // If not a match, move the unmatched cards after a short delay
+            isCardFlipping = true;
+            setTimeout(() => {
+              document.querySelectorAll(".card").forEach(card => {
+                card.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+              });
+            }, 1000);
+
+            // Hide the unmatched cards again after another delay
+            setTimeout(() => {
+              document.querySelectorAll(".card").forEach(card => {
+                card.style.backgroundImage = `url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg')`;
+                card.style.transform = "none";
+              });
+              isCardFlipping = false;
+              incorrectMatches++;
+
+              // Check if the player has made three incorrect matches
+              if (incorrectMatches === 3) {
+                alert("Anda sangat bodoh. Silahkan ulangi lagi.");
+                resetGame();
+              }
+            }, 2000);
+          }
+
+          // Clear the selected cards array for the next turn
+          selectedCards = [];
+        }
+      }
+    }
+  }
+
+  // Function to congratulate the player
+  function congratulatePlayer() {
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("congratulations-message");
+    const congratulationsText = document.createElement("p");
+    congratulationsText.textContent = "Terima kasih telah bermain, kamu hebat walaupun cabul.";
+
+    const thanksText = document.createElement("p");
+    thanksText.textContent = "Terima kasih kepada pencipta game, Boboiboy turuuu.";
+
+    messageContainer.appendChild(congratulationsText);
+    messageContainer.appendChild(thanksText);
+
+    document.body.appendChild(messageContainer);
+
+    // Add animations or styles as needed
+  }
+
+  // Function to reset the game
+  function resetGame() {
+    selectedCards = [];
+    incorrectMatches = 0;
+    isCardFlipping = false;
+
+    // Reset card styles to question marks after a short delay
+    setTimeout(() => {
+      document.querySelectorAll(".card").forEach((card, index) => {
+        card.setAttribute("data-index", index);
+        card.style.backgroundImage = `url('https://telegra.ph/file/f3ca2ca9812461030778d.jpg')`;
+      });
+    }, 500);
+
+    // Assign new shuffled images to the cards after a delay
+    setTimeout(() => {
+      const reshuffledImages = shuffle(pairedImages);
+      document.querySelectorAll(".card").forEach((card, index) => {
+        card.setAttribute("data-index", index);
+        card.style.backgroundImage = `url('${reshuffledImages[index]}')`;
+      });
+    }, 1000);
+  }
+</script>
+
+</body>
+  </html>
