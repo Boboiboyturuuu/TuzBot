@@ -6,7 +6,7 @@ phpvuln is an open source OWASP penetration testing tool written in Python 3, th
 
 ## Screenshot
 
-![Screenshot]([https://telegra.ph/file/648de312cd116010d008c.png])
+![Screenshot](images/screenshot1.png)
 
 ## Installation
 
