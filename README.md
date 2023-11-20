@@ -34,10 +34,9 @@
 
 ## `SETTING`
 
-- Owner Number [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/2b7ce09d6dc73134d34d0ccf970d0efc95901c97/config.js#L13C17-L13C17)
-- Owner Name [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/2b7ce09d6dc73134d34d0ccf970d0efc95901c97/config.js#L60)
-- Bot Name [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/2b7ce09d6dc73134d34d0ccf970d0efc95901c97/config.js#L59)
----------
+- Owner Number [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/main/config.js#L13C17-L13C17)
+- Owner Name [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/main/config.js#L60)
+- Bot Name [Here](https://github.com/Boboiboyturuuu/TuzBot/blob/main/config.js#L59)
 
 ## FORCE CMD INSTALL
   ```bash
