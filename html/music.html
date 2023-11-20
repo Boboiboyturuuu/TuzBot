@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Lagu Favorit</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #audioPlayer {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Daftar Lagu Favorit</h1>
+
+    <ul>
+        <li>
+            Kata Kata - <button onclick="playSong('kata_kata')">Play</button>
+        </li>
+        <li>
+            Diary Depresiku - <button onclick="playSong('diary_depresiku')">Play</button>
+        </li>
+        <li>
+            Kota - <button onclick="playSong('kota')">Play</button>
+        </li>
+        <li>
+            Tak Pernah Ternilai - <button onclick="playSong('tak_pernah_ternilai')">Play</button>
+        </li>
+        <li>
+            Duka - <button onclick="playSong('duka')">Play</button>
+        </li>
+        <li>
+            Mata Ke Hati - <button onclick="playSong('mata_ke_hati')">Play</button>
+        </li>
+        <li>
+            Menghapus Jejakmu - <button onclick="playSong('menghapus_jejakmu')">Play</button>
+        </li>
+        <li>
+            Kau Rumahku - <button onclick="playSong('kau_rumahku')">Play</button>
+        </li>
+        <li>
+            Jiwa Yang Bersedih - <button onclick="playSong('jiwa_yang_bersedih')">Play</button>
+        </li>
+    </ul>
+
+    <script>
+        function playSong(songName) {
+            fetch(`https://api-brunosobrino.zipponodes.xyz/api/spotifydl?song=${songName}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Memutar lagu: ' + songName);
+                    console.log('URL musik: ' + data.url);
+
+                    // Dapatkan elemen audio
+                    var audioElement = document.getElementById('audioPlayer');
+
+                    // Atur sumber audio dan putar
+                    audioElement.src = data.url;
+                    audioElement.play();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+    <!-- Tambahkan elemen audio -->
+    <audio id="audioPlayer" controls></audio>
+
+</body>
+  </html>
