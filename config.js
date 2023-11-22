@@ -58,8 +58,8 @@ global.ameapikey = "1f98ec7e4842d057d7551722f83e9ae5c59896856aa3f96d406ff8fc9185
 global.xyro = "yqiBQF86F4"
 
 /*Number*/
-global.nomorbot = "6285171216276"
-global.nomorown = "6282195322106"
+global.nomorbot = "6281243673506"
+global.nomorown = "6281243673506"
 global.namebot = " 𝐓𝐮𝐳𝐁𝐨𝐭 〶 "
 global.nameown = "「 𝐁𝐨𝐛𝐨𝐢𝐛𝐨𝐲 」"
 
